@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
+from e_i_model import generate
+from credit_card_model import generate_pci
+# from conversions import conversion
 app = Flask(__name__)
 CORS(app)
 
@@ -42,9 +45,16 @@ def refresh_user():
 def get_data():
     # if request.method == "POST":
     data = request.get_json()
-    
     print(data)
-    return jsonify(data), 200
+    if data["dataset"] == "Employee Dataset":
+        print(int(data["rows"]))
+        person = generate(int(data["rows"]))
+        return person, 200
+    elif data["dataset"] == "PCI Dataset":
+        pci = generate_pci(int(data["rows"]))
+        return pci, 200
+    # person = conversion(data["format"],person)
+    return {}, 200
 
 
 if __name__ == "__main__":

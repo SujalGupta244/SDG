@@ -3,10 +3,10 @@ import csv
 import pandas as pd
 import json
 
-def change_to_doc():
+def change_to_doc(data):
     doc = docx.Document()
 
-    with open('csv.csv', newline='') as f:
+    with open(data, newline='') as f:
         csv_reader = csv.reader(f) 
 
         csv_headers = next(csv_reader)
@@ -27,11 +27,11 @@ def change_to_doc():
     doc.save("data.docx")
 
 
-def change_to_excel():
+def change_to_excel(data):
 
-    df = pd.read_csv("csv.csv")
+    df = pd.read_csv(data)
     df.to_excel("data.xlsx", sheet_name="Testing", index=False)
-
+    return df
 
 def change_to_json():
     
@@ -53,10 +53,11 @@ def change_to_json():
             jsonf.write(json.dumps(data, indent=4))
             
 
-def conversion(format):
+def conversion(format,data):
+
     if format=='docx':
-        change_to_doc()
+        return change_to_doc(data)
     elif format=='xls':
-        change_to_excel()
+        return change_to_excel(data)
     # elif format=='json':
     #     change_to_json()

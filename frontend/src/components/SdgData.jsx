@@ -8,7 +8,7 @@ import axios from "axios";
 import { UserContext } from "../context/context";
 import { Navigate } from "react-router-dom";
 import fileDownload from 'js-file-download'
-
+// import {OutTable, ExcelRenderer} from 'react-excel-renderer';
 
 function SdgData() {
 //   const { user } = useContext(UserContext);
@@ -37,18 +37,36 @@ function SdgData() {
       dataset,
       format,
     });
-
-    console.log(data);
-    setData(data)
+    const d = await data.data
+    // console.log(data);
+    setData(d)
 
     // console.log(rows, dataset, format);
   };
 
+  console.log(data)
   const handleSubmit = async (e) => {
     e.preventDefault();
-    fileDownload(data, "Data")
+    if(format == "csv"){
+        fileDownload(data, "Data.csv")
+        return true;
+    
+    }
+    else if(format == "json"){
+        fileDownload(data, "Data.json")
+        return true;
+    }
+    else if(format == "excel"){
+        fileDownload(data, "Data.xlsx")
+        return true;
+    }
     // console.log(email, password);
   };
+
+  let columns = dataset == "Employee Dataset" ?
+  ["Name","UserId", "Email","SSN","Blood Group", "Gender","Address","DOB","US Driver License Number"]
+  :
+  ["Card Holder Number","CVV","Expiration date","Credit Card Number","Card Provider"]
 
   return (
     <Container className="mt-5">
@@ -83,10 +101,10 @@ function SdgData() {
             title={format.length > 0 ? format : "Format"}
             onSelect={handleFormat}
           >
-            <Dropdown.Item eventKey="CSV">CSV</Dropdown.Item>
-            <Dropdown.Item eventKey="Excel">Excel</Dropdown.Item>
-            <Dropdown.Item eventKey="Doc">Doc</Dropdown.Item>
-            <Dropdown.Item eventKey="Json">Json</Dropdown.Item>
+            <Dropdown.Item eventKey="csv">CSV</Dropdown.Item>
+            <Dropdown.Item eventKey="excel">Excel</Dropdown.Item>
+            <Dropdown.Item eventKey="doc">Doc</Dropdown.Item>
+            <Dropdown.Item eventKey="json">Json</Dropdown.Item>
           </DropdownButton>
 
 
@@ -103,6 +121,8 @@ function SdgData() {
           Download
         </Button>
       </Form>
+
+      {/* <OutTable data={"this.state.rows"} columns={"this.state.cols"} tableClassName={dataset} tableHeaderRowClass="heading" /> */}
     </Container>
   );
 }

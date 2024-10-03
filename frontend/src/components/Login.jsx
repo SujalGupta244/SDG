@@ -1,21 +1,36 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios'
+import { UserContext } from '../context/context';
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    
+
+    const {setUser, setToken, user} = useContext(UserContext)
+
+    if(user){
+        <Navigate to="/sdgdata"/>
+    }
 
     const handleSubmit = async(e) =>{
         e.preventDefault()
-        // const data = await axios.post("http:/localhost:5000/api/login",{
-        //     email,
-        //     password
-        // })
-        // console.log(data)
+        try {
+            const data = await axios.post("http://127.0.0.1:5000/api/login",{
+                email,
+                password
+            })
+            setUser(data)
+            setToken(data)
+            navigate("/sdgdata")
+        } catch (error) {
+            setError(error.message)
+        }
 
         console.log(email, password)
     }
@@ -42,6 +57,9 @@ function Login() {
       <Form.Text className="text-muted mt-5">
         Don't have account ? &nbsp;
         <Link to="/signup" className='link' style={{color:"blue"}}>Signup</Link>
+    </Form.Text>
+    <Form.Text className="text-muted mt-5">
+        {error}
     </Form.Text>
 
     </Container>

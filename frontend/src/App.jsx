@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useContext, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import axios from "axios";
 import { Container, Row, Col } from "react-bootstrap";
@@ -12,11 +12,30 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import SdgData from "./components/SdgData";
-const App = () => (
-<>
+import axios from "axios";
+import Home from "./components/Home";
+import { UserContext } from "./context/context";
+
+
+
+const App = () =>{ 
+  
+  const {user} = useContext(UserContext) 
+
+  useEffect(()=>{
+    const refresh = async() =>{
+      const data = await axios.get("http://127.0.0.1:5000/api/refresh")
+      return data;
+    }
+    refresh()
+  },[])
+  
+  return (
+  <>
   <NavBar/>
   <Routes>
 
+    <Route path="/" element={<Home/>}></Route>
     <Route path="/login" element={<Login/>}></Route>
     <Route path="/signup" element={<Signup/>}></Route>
     <Route path="/sdgdata" element={<SdgData/>}></Route>
@@ -55,6 +74,6 @@ const App = () => (
     //     </main>
     // </Fragment>
     
-);
+)};
 
 export default App;

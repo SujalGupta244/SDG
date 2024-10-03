@@ -9,12 +9,11 @@ function ColorSchemesExample() {
   return (
     <>
       <Navbar bg="dark" data-bs-theme="dark">
-        <Container>
-          <Navbar.Brand href="#home">SDG</Navbar.Brand>
+        <Container >
+          <Link to="/" className='link'>
+            <Navbar.Brand >SafeMoney</Navbar.Brand>
+          </Link>
           <Nav className="me-right">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Features</Nav.Link>
-            <Nav.Link href="#pricing">Pricing</Nav.Link>
             <Button variant="outline-success">
               <Link to="/login" className='link'>Login</Link>
             </Button>

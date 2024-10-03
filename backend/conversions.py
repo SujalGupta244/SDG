@@ -53,9 +53,10 @@ def change_to_json():
             jsonf.write(json.dumps(data, indent=4))
             
 
-if format=='docx':
-    change_to_doc()
-elif format=='xls':
-    change_to_excel()
-# elif format=='json':
-#     change_to_json()
+def conversion(format):
+    if format=='docx':
+        change_to_doc()
+    elif format=='xls':
+        change_to_excel()
+    # elif format=='json':
+    #     change_to_json()

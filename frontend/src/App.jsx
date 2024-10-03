@@ -22,13 +22,13 @@ const App = () =>{
   
   const {user} = useContext(UserContext) 
 
-  useEffect(()=>{
-    const refresh = async() =>{
-      const data = await axios.get("http://127.0.0.1:5000/api/refresh")
-      return data;
-    }
-    refresh()
-  },[])
+  // useEffect(()=>{
+  //   const refresh = async() =>{
+  //     const data = await axios.get("http://127.0.0.1:5000/api/refresh")
+  //     return data;
+  //   }
+  //   refresh()
+  // },[])
   
   return (
   <>

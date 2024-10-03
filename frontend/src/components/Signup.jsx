@@ -19,11 +19,11 @@ function Signup() {
     const handleSubmit = async(e) =>{
         e.preventDefault()
         try {
-            const data = await axios.post("http://127.0.0.1:5000/api/signup",{
-                username,
-                email,
-                password
-            })
+            // const data = await axios.post("http://127.0.0.1:5000/api/signup",{
+            //     username,
+            //     email,
+            //     password
+            // })
             
             navigate("/login")
         } catch (error) {

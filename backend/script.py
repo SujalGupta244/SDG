@@ -42,6 +42,7 @@ def refresh_user():
 def get_data():
     # if request.method == "POST":
     data = request.get_json()
+    
     print(data)
     return jsonify(data), 200
 
